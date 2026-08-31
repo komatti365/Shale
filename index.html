@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>連邦捜査部 シャーレ | SCHALE Kivotos Special Investigation Bureau</title>
+  <meta name="description" content="キヴォトス連邦生徒会直属 連邦捜査部「シャーレ(SCHALE)」の非公式コンセプトポータル。先生への事案報告、学園情勢モニタリング、シッテムの箱端末機能を提供します。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23060c1a' stroke='%2300e5ff' stroke-width='4'/><polygon points='50,15 85,50 50,85 15,50' fill='none' stroke='%2300e5ff' stroke-width='3'/><circle cx='50' cy='50' r='14' fill='%2300e5ff'/></svg>">
+</head>
+<body class="schale-theme">
+
+  <!-- Scanlines & Ambient Grid -->
+  <div class="cyber-grid-bg"></div>
+  <div class="vignette-overlay"></div>
+  <div class="scanline"></div>
+
+  <!-- Top Unofficial Disclaimer Bar -->
+  <aside class="disclaimer-top-bar" id="disclaimerBar">
+    <div class="disclaimer-content">
+      <span class="badge-unoff">UNOFFICIAL / 非公式</span>
+      <p class="disclaimer-text">
+        当サイトは『ブルーアーカイブ』ファン有志による非公式のコンセプトWebサイトです。株式会社YostarおよびNEXON Games様とは一切関係ありません。
+      </p>
+      <div class="official-links-inline">
+        <a href="https://bluearchive.jp/" target="_blank" rel="noopener noreferrer" class="btn-official-external">
+          <svg class="icon-ext" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          ブルアカ公式サイト ↗
+        </a>
+      </div>
+      <button class="disclaimer-close-btn" id="closeDisclaimerBtn" title="閉じる" aria-label="閉じる">×</button>
+    </div>
+  </aside>
+
+  <!-- Global Header -->
+  <header class="schale-header" id="mainHeader">
+    <div class="header-container">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="brand-logo">
+        <div class="logo-emblem">
+          <svg viewBox="0 0 100 100" class="schale-svg-icon" aria-hidden="true">
+            <!-- SCHALE Crest Geometric Shape -->
+            <polygon points="50,6 92,30 92,70 50,94 8,70 8,30" fill="rgba(0, 229, 255, 0.08)" stroke="#00E5FF" stroke-width="3"/>
+            <polygon points="50,18 80,35 80,65 50,82 20,65 20,35" fill="none" stroke="rgba(0, 229, 255, 0.4)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <!-- Halo Accent -->
+            <circle cx="50" cy="50" r="18" fill="none" stroke="#00E5FF" stroke-width="2.5"/>
+            <line x1="50" y1="26" x2="50" y2="74" stroke="#00E5FF" stroke-width="2.5"/>
+            <line x1="26" y1="50" x2="74" y2="50" stroke="#00E5FF" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="4" fill="#00E5FF"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-sub">GENERAL STUDENT COUNCIL DIRECT</div>
+          <div class="brand-main">SCHALE <span>連邦捜査部</span></div>
+          <div class="brand-serial">DIV.INVESTIGATION // KIVOTOS</div>
+        </div>
+      </a>
+
+      <!-- Kivotos System HUD Status -->
+      <div class="header-hud-status">
+        <div class="hud-item">
+          <span class="hud-label">KST (KIVOTOS TIME)</span>
+          <span class="hud-value" id="kivotosClock">--:--:--</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item">
+          <span class="hud-label">SANCTUM TOWER</span>
+          <span class="hud-value status-online"><span class="pulsing-dot"></span>CONNECTED</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item">
+          <span class="hud-label">CLEARANCE</span>
+          <span class="hud-value clearance-tag">SENSEI (LV.MAX)</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="#about" class="nav-link"><span class="nav-num">01</span>連邦捜査部概要</a>
+        <a href="#dossiers" class="nav-link"><span class="nav-num">02</span>事案調査ログ</a>
+        <a href="#academies" class="nav-link"><span class="nav-num">03</span>学園治安情勢</a>
+        <a href="#terminal" class="nav-link"><span class="nav-num">04</span>シッテムOS端末</a>
+        <a href="#request" class="nav-link"><span class="nav-num">05</span>事案支援要請</a>
+        <a href="#official-portal" class="nav-link highlight-official"><span class="nav-num">06</span>公式ポータル ↗</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button class="sound-toggle-btn" id="soundToggle" title="SFX 音声効果切替">
+          <span class="sound-icon" id="soundIcon">🔊</span>
+          <span class="sound-label">SFX: ON</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニュー開閉">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Live Ticker / Kivotos Emergency Feed -->
+  <div class="ticker-wrapper">
+    <div class="ticker-tag">
+      <span class="ticker-badge">GSC BROADCAST</span>
+      <span class="ticker-title">連邦生徒会公報</span>
+    </div>
+    <div class="ticker-track">
+      <div class="ticker-inner" id="tickerInner">
+        <!-- Injected via JavaScript -->
+        <span class="ticker-msg">【定例通信】シャーレ顧問（先生）の認証を確認。キヴォトス全域の管轄権限が正常に委任されています。</span>
+        <span class="ticker-msg">【事案警報】ミレニアム自治区周辺にて異常エネルギー反応を探知。特異現象捜査部が調査中。</span>
+        <span class="ticker-msg">【治安情報】トリニティ・ゲヘナ境界域のパトロールを強化。風紀委員会および正義実現委員会が警戒中。</span>
+        <span class="ticker-msg">【シッテムの箱】アロナ「先生！本日もお仕事頑張ってくださいね！おやつ待ってます！」</span>
+        <span class="ticker-msg">【注意】当ポータルはファン有志制作の非公式Webサイトです。公式情報は bluearchive.jp をご確認ください。</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-container">
+        
+        <!-- Left Side: Hero Info -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>EXTRAJUDICIAL SPECIAL INVESTIGATION BUREAU</span>
+          </div>
+          
+          <h1 class="hero-title">
+            <span class="hero-sub-title">連邦生徒会直属 連邦捜査機関</span>
+            <span class="hero-main-title">シャーレ</span>
+            <span class="hero-en-title">SCHALE PORTAL</span>
+          </h1>
+
+          <div class="hero-quote-box">
+            <div class="quote-bar"></div>
+            <p class="hero-greeting">
+              「先生、おかえりなさいませ。キヴォトスのすべての生徒たちが、あなたを待っています。」
+            </p>
+            <span class="quote-author">— シッテムの箱 メインOS アロナ ＆ プラナ</span>
+          </div>
+
+          <p class="hero-description">
+            連邦生徒会長の失踪に伴い設立された超法規的機関「シャーレ」。各自治区の自治権を超越し、生徒たちと共にキヴォトスで発生するあらゆる危機と日常の事件に対処します。
+          </p>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-cta-group">
+            <a href="#dossiers" class="btn-primary btn-glow">
+              <span class="btn-icon">📁</span> 事案ログを閲覧する
+            </a>
+            <a href="#request" class="btn-secondary">
+              <span class="btn-icon">📝</span> 支援・任務を承認する
+            </a>
+            <a href="#official-portal" class="btn-tertiary">
+              <span class="btn-icon">🌐</span> 公式サイトへアクセス ↗
+            </a>
+          </div>
+
+          <!-- Quick Stats Counter -->
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <div class="metric-val" id="metricResolutions">2,480+</div>
+              <div class="metric-label">解決済み事案数</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val" id="metricAcademies">12</div>
+              <div class="metric-label">連携学園自治区</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val status-green">100%</div>
+              <div class="metric-label">先生への信頼度</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">∞</div>
+              <div class="metric-label">生徒たちの可能性</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Hologram Emblem Display -->
+        <div class="hero-visual">
+          <div class="holo-card-wrapper">
+            <div class="holo-ring holo-ring-outer"></div>
+            <div class="holo-ring holo-ring-mid"></div>
+            <div class="holo-ring holo-ring-inner"></div>
+            
+            <div class="holo-main-display">
+              <!-- Central Shittim Chest / SCHALE Emblem -->
+              <div class="schale-crest-large">
+                <svg viewBox="0 0 200 200" class="crest-svg" aria-hidden="true">
+                  <polygon points="100,10 185,60 185,140 100,190 15,140 15,60" fill="rgba(0, 229, 255, 0.05)" stroke="#00E5FF" stroke-width="4"/>
+                  <polygon points="100,28 165,66 165,134 100,172 35,134 35,66" fill="none" stroke="rgba(0, 229, 255, 0.4)" stroke-width="2" stroke-dasharray="6 4"/>
+                  <!-- Core cross & diamond -->
+                  <polygon points="100,45 145,100 100,155 55,100" fill="rgba(0, 229, 255, 0.15)" stroke="#00E5FF" stroke-width="3"/>
+                  <circle cx="100" cy="100" r="28" fill="none" stroke="#FFE600" stroke-width="3"/>
+                  <circle cx="100" cy="100" r="10" fill="#00E5FF"/>
+                  <line x1="100" y1="50" x2="100" y2="150" stroke="#FFE600" stroke-width="2.5"/>
+                  <line x1="50" y1="100" x2="150" y2="100" stroke="#FFE600" stroke-width="2.5"/>
+                </svg>
+              </div>
+
+              <div class="holo-info-tag">
+                <span class="holo-title">SHITTIM CHEST OS</span>
+                <span class="holo-status">MAIN TERMINAL ACTIVE</span>
+                <span class="holo-id">SEC-AUTH // SENSEI-001</span>
+              </div>
+
+              <div class="holo-corner corner-tl"></div>
+              <div class="holo-corner corner-tr"></div>
+              <div class="holo-corner corner-bl"></div>
+              <div class="holo-corner corner-br"></div>
+            </div>
+
+            <!-- Mini Floating Status Badges -->
+            <div class="floating-badge badge-1">
+              <span class="badge-icon">☕</span>
+              <div class="badge-text">
+                <strong>シャーレカフェ</strong>
+                <small>本日来訪生徒: 5名</small>
+              </div>
+            </div>
+            <div class="floating-badge badge-2">
+              <span class="badge-icon">📦</span>
+              <div class="badge-text">
+                <strong>クラフトチェンバー</strong>
+                <small>製造炉稼働中 100%</small>
+              </div>
+            </div>
+            <div class="floating-badge badge-3">
+              <span class="badge-icon">🛡️</span>
+              <div class="badge-text">
+                <strong>サンクトゥムタワー</strong>
+                <small>防壁制御: 安定</small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 01: About SCHALE (組織概要・権限) -->
+    <section class="section-container" id="about">
+      <div class="section-header">
+        <div class="section-tag"><span class="tag-num">01</span> OVERVIEW & AUTHORITY</div>
+        <h2 class="section-title">連邦捜査部「シャーレ」とは</h2>
+        <p class="section-subtitle">超法規的権限を有し、学園都市キヴォトスの秩序と生徒の日常を守る顧問機関</p>
+      </div>
+
+      <div class="about-grid">
+        
+        <!-- Card 1: 組織の目的と設立経緯 -->
+        <div class="schale-card">
+          <div class="card-corner"></div>
+          <div class="card-icon-wrap">
+            <span class="card-icon">🏛️</span>
+          </div>
+          <h3 class="card-title">設立経緯と超法規的権限</h3>
+          <p class="card-desc">
+            連邦生徒会長の直轄機関として設立。連邦生徒会長の失踪後、唯一「先生」を顧問として招くことで起動した超法規的捜査部です。各自治区の独立した自治権に縛られず、キヴォトス全域への捜査・介入権限を保持します。
+          </p>
+          <ul class="feature-list">
+            <li><span>✓</span> 全自治区への無制限アクセス・捜査権</li>
+            <li><span>✓</span> サンクトゥムタワー制御権の先生への委譲</li>
+            <li><span>✓</span> 各学園生徒の招集・合同部隊の編成権限</li>
+          </ul>
+        </div>
+
+        <!-- Card 2: 先生（顧問）の役割 -->
+        <div class="schale-card">
+          <div class="card-corner"></div>
+          <div class="card-icon-wrap">
+            <span class="card-icon">👓</span>
+          </div>
+          <h3 class="card-title">顧問「先生」と生徒たちの絆</h3>
+          <p class="card-desc">
+            キヴォトス唯一の大人であり、シャーレの全作戦指揮を執る顧問。生徒たちを罰するのではなく、責任を背負い、選択を導く大人として、あらゆる学園の生徒から絶大な信頼を寄せられています。
+          </p>
+          <ul class="feature-list">
+            <li><span>✓</span> 戦術指揮および戦況分析の提供</li>
+            <li><span>✓</span> 生徒個別の悩み相談・メンタルケア</li>
+            <li><span>✓</span> 大人としての責任の肩代わりと庇護</li>
+          </ul>
+        </div>
+
+        <!-- Card 3: シャーレオフィスの主要施設 -->
+        <div class="schale-card">
+          <div class="card-corner"></div>
+          <div class="card-icon-wrap">
+            <span class="card-icon">🏢</span>
+          </div>
+          <h3 class="card-title">シャーレビル主要設備</h3>
+          <p class="card-desc">
+            キヴォトス中心街に位置する高層ビル。先生の執務室をはじめ、生徒たちが憩うカフェ、装備品や資材を合成する製造設備、防衛監視システムが完備されています。
+          </p>
+          <ul class="feature-list">
+            <li><span>✓</span> <strong>シャーレ執務室 & 居住区:</strong> 先生の活動拠点</li>
+            <li><span>✓</span> <strong>シャーレカフェ:</strong> 生徒たちが自由に来訪・交流</li>
+            <li><span>✓</span> <strong>クラフトチェンバー:</strong> 物質生成・技術支援炉</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bureau Command Structure Banner -->
+      <div class="structure-banner">
+        <div class="banner-inner">
+          <div class="structure-badge">CHAIN OF COMMAND</div>
+          <div class="structure-flow">
+            <div class="flow-step">
+              <span class="step-role">設立者</span>
+              <strong>連邦生徒会長</strong>
+              <small>(現在行方不明)</small>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step highlight-step">
+              <span class="step-role">最高指揮顧問</span>
+              <strong>先生 (SENSEI)</strong>
+              <small>シッテムの箱 保有者</small>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step">
+              <span class="step-role">OS支援</span>
+              <strong>アロナ ＆ プラナ</strong>
+              <small>A.R.O.N.A プロトコル</small>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step">
+              <span class="step-role">協力</span>
+              <strong>キヴォトス全学園生徒</strong>
+              <small>連邦・各自治区自治会</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 02: Incident Dossiers (事案調査ログ) -->
+    <section class="section-container" id="dossiers">
+      <div class="section-header">
+        <div class="section-tag"><span class="tag-num">02</span> CLASSIFIED INCIDENT DOSSIERS</div>
+        <h2 class="section-title">事案調査ログ・作戦記録</h2>
+        <p class="section-subtitle">シャーレが介入・解決に導いた主要事案の調査機密記録（閲覧許可レベル: 先生）</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="dossier-filters">
+        <button class="filter-btn active" data-filter="all">すべて</button>
+        <button class="filter-btn" data-filter="main">主要事案 (Main Arc)</button>
+        <button class="filter-btn" data-filter="crisis">自治区危機 (Crisis)</button>
+        <button class="filter-btn" data-filter="special">特異事象 (Decagrammaton)</button>
+      </div>
+
+      <div class="dossier-grid" id="dossierGrid">
+        
+        <!-- Dossier 1 -->
+        <article class="dossier-card" data-category="main">
+          <div class="dossier-header">
+            <span class="dossier-code">FILE #001-ABYDOS</span>
+            <span class="clearance-badge clearance-level-1">RESOLVED</span>
+          </div>
+          <h3 class="dossier-title">アビドス廃校危機および砂漠化対策支援</h3>
+          <div class="dossier-meta">
+            <span><strong>関連組織:</strong> アビドス対策委員会 / カイザーコーポレーション</span>
+            <span><strong>主管:</strong> シャーレ顧問 先生</span>
+          </div>
+          <p class="dossier-summary">
+            莫大な借金と砂漠化により廃校寸前に追い込まれていたアビドス高等学校を支援。カイザーPMCによる不当占拠と借金問題の真相を暴き、生徒たちと学び舎の存続を死守。
+          </p>
+          <div class="dossier-tags">
+            <span class="d-tag">#対策委員会</span>
+            <span class="d-tag">#カイザーPMC</span>
+            <span class="d-tag">#砂漠横断</span>
+          </div>
+          <button class="btn-dossier-read" onclick="openDossierModal('abydos')">調査詳細ファイルを開く ➔</button>
+        </article>
+
+        <!-- Dossier 2 -->
+        <article class="dossier-card" data-category="crisis">
+          <div class="dossier-header">
+            <span class="dossier-code">FILE #002-EDEN</span>
+            <span class="clearance-badge clearance-level-3">TOP SECRET</span>
+          </div>
+          <h3 class="dossier-title">エデン条約調印式事変およびアリウス介入</h3>
+          <div class="dossier-meta">
+            <span><strong>関連組織:</strong> トリニティ総合学園 / ゲヘナ学園 / アリウス分校</span>
+            <span><strong>主管:</strong> 連邦捜査部特命</span>
+          </div>
+          <p class="dossier-summary">
+            長年の敵対関係にあった両校の平和条約調印式で発生した未曾有のテロ事案。影で暗躍する「ベアトリーチェ」の策謀を阻止し、補習授業部およびアリウススクワッドを救出。
+          </p>
+          <div class="dossier-tags">
+            <span class="d-tag">#エデン条約</span>
+            <span class="d-tag">#補習授業部</span>
+            <span class="d-tag">#戒律の破壊</span>
+          </div>
+          <button class="btn-dossier-read" onclick="openDossierModal('eden')">調査詳細ファイルを開く ➔</button>
+        </article>
+
+        <!-- Dossier 3 -->
+        <article class="dossier-card" data-category="special">
+          <div class="dossier-header">
+            <span class="dossier-code">FILE #003-DECAGRAM</span>
+            <span class="clearance-badge clearance-level-2">RESTRICTED</span>
+          </div>
+          <h3 class="dossier-title">自律型AI「デカグラマトン」預言者討伐記録</h3>
+          <div class="dossier-meta">
+            <span><strong>関連組織:</strong> ミレニアム特異現象捜査部 / ゲーム開発部</span>
+            <span><strong>主管:</strong> シャーレ合同作戦部隊</span>
+          </div>
+          <p class="dossier-summary">
+            自らを神の証明と称する自律型AI軍団「デカグラマトン」の覚醒を検知。ビナー、ケテル、ケセド等の予言者に対抗するため、ミレニアムおよび各校の戦力を糾合し迎撃。
+          </p>
+          <div class="dossier-tags">
+            <span class="d-tag">#ミレニアム</span>
+            <span class="d-tag">#特異現象捜査部</span>
+            <span class="d-tag">#総力戦</span>
+          </div>
+          <button class="btn-dossier-read" onclick="openDossierModal('decagram')">調査詳細ファイルを開く ➔</button>
+        </article>
+
+        <!-- Dossier 4 -->
+        <article class="dossier-card" data-category="main">
+          <div class="dossier-header">
+            <span class="dossier-code">FILE #004-FINAL-ARC</span>
+            <span class="clearance-badge clearance-level-3">CRITICAL ARCHIVE</span>
+          </div>
+          <h3 class="dossier-title">あまねく奇跡の始発点・サンクトゥムタワー防衛戦</h3>
+          <div class="dossier-meta">
+            <span><strong>関連組織:</strong> キヴォトス全学園連合 / 連邦生徒会 / シャーレ</span>
+            <span><strong>主管:</strong> 先生 ＆ アロナ・プラナ</span>
+          </div>
+          <p class="dossier-summary">
+            偽りのサンクトゥムタワー出現と色彩の侵略に伴うキヴォトス全土崩壊の危機。先生の指揮下、全学園の生徒が一致団結して宇宙戦艦ウトナピシュティムの本船を起動し世界を奪還。
+          </p>
+          <div class="dossier-tags">
+            <span class="d-tag">#全学園連合</span>
+            <span class="d-tag">#プレナパテス</span>
+            <span class="d-tag">#奇跡の始発点</span>
+          </div>
+          <button class="btn-dossier-read" onclick="openDossierModal('final')">調査詳細ファイルを開く ➔</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Section 03: Kivotos Academy Security Matrix (学園治安情勢) -->
+    <section class="section-container" id="academies">
+      <div class="section-header">
+        <div class="section-tag"><span class="tag-num">03</span> ACADEMY AUTONOMY & SECURITY</div>
+        <h2 class="section-title">キヴォトス学園治安情勢モニター</h2>
+        <p class="section-subtitle">シャーレ通信ネットワークと常時リンクしている主要学園自治区の治安ステータス</p>
+      </div>
+
+      <div class="academy-grid">
+        
+        <!-- Millennium -->
+        <div class="academy-card">
+          <div class="academy-head">
+            <span class="ac-icon">💻</span>
+            <div>
+              <h3 class="ac-name">ミレニアムサイエンススクール</h3>
+              <span class="ac-eng">Millennium Science School</span>
+            </div>
+          </div>
+          <div class="ac-status status-good">● 治安状況: 安定 (工学部実験中)</div>
+          <p class="ac-desc">科学と論理を重んじる先進校。生徒会「セミナー」が巨額の予算を管理。特異現象捜査部やC&Cと連携中。</p>
+          <div class="ac-clubs">主要部活: セミナー / C&C / 特異現象捜査部 / エンジニア部 / ゲーム開発部</div>
+        </div>
+
+        <!-- Trinity -->
+        <div class="academy-card">
+          <div class="academy-head">
+            <span class="ac-icon">🕊️</span>
+            <div>
+              <h3 class="ac-name">トリニティ総合学園</h3>
+              <span class="ac-eng">Trinity General School</span>
+            </div>
+          </div>
+          <div class="ac-status status-good">● 治安状況: 平穏 (お茶会開催中)</div>
+          <p class="ac-desc">伝統と格式を重んじる巨大お嬢様学園。「ティーパーティー」が生徒会を務め、「正義実現委員会」が治安を維持。</p>
+          <div class="ac-clubs">主要部活: ティーパーティー / 正義実現委員会 / 救護騎士団 / シスターフッド / 補習授業部</div>
+        </div>
+
+        <!-- Gehenna -->
+        <div class="academy-card">
+          <div class="academy-head">
+            <span class="ac-icon">😈</span>
+            <div>
+              <h3 class="ac-name">ゲヘナ学園</h3>
+              <span class="ac-eng">Gehenna Academy</span>
+            </div>
+          </div>
+          <div class="ac-status status-warn">▲ 治安状況: 警戒 (美食研究会活動中)</div>
+          <p class="ac-desc">自由と混沌を愛するマンモス校。生徒会「万魔殿」とヒナ率いる「風紀委員会」が日夜トラブルに対処。</p>
+          <div class="ac-clubs">主要部活: 万魔殿 / 風紀委員会 / 美食研究会 / 給食部 / 便利屋68</div>
+        </div>
+
+        <!-- Abydos -->
+        <div class="academy-card">
+          <div class="academy-head">
+            <span class="ac-icon">🏜️</span>
+            <div>
+              <h3 class="ac-name">アビドス高等学校</h3>
+              <span class="ac-eng">Abydos High School</span>
+            </div>
+          </div>
+          <div class="ac-status status-good">● 治安状況: 復興中 (5名全員健在)</div>
+          <p class="ac-desc">かつてキヴォトス最大規模を誇った古豪。現在は対策委員会の5名が借金返済と自治区復興に奮闘中。</p>
+          <div class="ac-clubs">主要部活: 対策委員会</div>
+        </div>
+
+        <!-- Hyakkiyako -->
+        <div class="academy-card">
+          <div class="academy-head">
+            <span class="ac-icon">🌸</span>
+            <div>
+              <h3 class="ac-name">百鬼夜行連合学院</h3>
+              <span class="ac-eng">Allied Hyakkiyako Academy</span>
+            </div>
+          </div>
+          <div class="ac-status status-good">● 治安状況: 盛況 (観光祭典準備中)</div>
+          <p class="ac-desc">和の文化と伝統・観光産業が発展した連合校。生徒会「陰陽部」や治安部隊「百花繚乱紛争調停委員会」が統制。</p>
+          <div class="ac-clubs">主要部活: 陰陽部 / 百花繚乱 / お祭り運営委員会 / 修行部 / 忍術研究部</div>
+        </div>
+
+        <!-- Red Winter & SRT & Others -->
+        <div class="academy-card">
+          <div class="academy-head">
+            <span class="ac-icon">🪖</span>
+            <div>
+              <h3 class="ac-name">その他の学園自治区</h3>
+              <span class="ac-eng">Red Winter / SRT / Valkyrie / Arius / Shanhaijing</span>
+            </div>
+          </div>
+          <div class="ac-status status-good">● 治安状況: 連邦監視下</div>
+          <p class="ac-desc">レッドウィンター連邦学園、山海経高級中学校、ヴァルキューレ警察学校、SRT特殊学園、アリウス分校など全自治区と通信可能。</p>
+          <div class="ac-clubs">主要組織: 事務局 / 玄龍門 / 公安局 / RABBIT小隊 / スクワッド</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 04: Shittim Chest Terminal (シッテムの箱OS端末) -->
+    <section class="section-container" id="terminal">
+      <div class="section-header">
+        <div class="section-tag"><span class="tag-num">04</span> A.R.O.N.A INTERACTIVE TERMINAL</div>
+        <h2 class="section-title">シッテムの箱・シャーレ通信端末</h2>
+        <p class="section-subtitle">アロナ＆プラナが管理するシャーレ専属AIコンソール。コマンドを入力またはクイック実行できます。</p>
+      </div>
+
+      <div class="terminal-container">
+        
+        <!-- Terminal Window Frame -->
+        <div class="terminal-window">
+          
+          <div class="terminal-topbar">
+            <div class="term-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="term-title">SHITTIM-OS v3.7 // SENSEI'S CONSOLE [ONLINE]</div>
+            <div class="term-assistant-badge">
+              <span class="assistant-avatar">💙</span> ARONA & PLANA
+            </div>
+          </div>
+
+          <!-- Terminal Output Area -->
+          <div class="terminal-body" id="termOutput">
+            <div class="term-line system-msg">[SYSTEM] SHITTIM CHEST OS BOOT SEQUENCE COMPLETE.</div>
+            <div class="term-line system-msg">[SECURITY] BIOMETRIC SIGNATURE VERIFIED: SENSEI (LEVEL MAX).</div>
+            <div class="term-line arona-msg"><span class="speaker-tag arona">アロナ</span>「先生！お仕事お疲れ様です！本日もシッテムの箱端末は絶好調ですよ〜！」</div>
+            <div class="term-line plana-msg"><span class="speaker-tag plana">プラナ</span>「先輩、先生をお迎えする準備は完了しています。コマンドを入力してください。」</div>
+            <div class="term-line tip-msg">※下のクイックボタンを押すか、コマンド（help, status, gacha, cafe, report, clear）を入力できます。</div>
+          </div>
+
+          <!-- Terminal Input Area -->
+          <form class="terminal-input-bar" id="terminalForm" onsubmit="event.preventDefault(); handleTerminalSubmit();">
+            <span class="term-prompt">SCHALE/SENSEI:~$</span>
+            <input type="text" id="termInput" class="term-input-field" placeholder="コマンドを入力 (例: help, arona, status, gacha, cafe)" autocomplete="off" spellcheck="false">
+            <button type="submit" class="btn-term-send">送信 ↵</button>
+          </form>
+
+        </div>
+
+        <!-- Terminal Quick Action Controls -->
+        <div class="term-quick-controls">
+          <span class="quick-label">⚡ クイック操作:</span>
+          <button class="btn-quick-cmd" onclick="runQuickCmd('arona')">💬 アロナとお話</button>
+          <button class="btn-quick-cmd" onclick="runQuickCmd('plana')">💙 プラナとお話</button>
+          <button class="btn-quick-cmd" onclick="runQuickCmd('status')">📊 全体ステータス</button>
+          <button class="btn-quick-cmd" onclick="runQuickCmd('cafe')">☕ シャーレカフェ状況</button>
+          <button class="btn-quick-cmd" onclick="runQuickCmd('gacha')">💌 お仕事運勢占い (封筒開封)</button>
+          <button class="btn-quick-cmd" onclick="runQuickCmd('help')">❓ コマンド一覧</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 05: Task & Incident Dispatch Request (支援要請・承認システム) -->
+    <section class="section-container" id="request">
+      <div class="section-header">
+        <div class="section-tag"><span class="tag-num">05</span> INCIDENT REQUEST & APPROVAL FORM</div>
+        <h2 class="section-title">シャーレ事案支援・任務申請フォーム</h2>
+        <p class="section-subtitle">各学園自治区からの緊急要請を受理し、先生の決裁（APPROVED印）を発行します。</p>
+      </div>
+
+      <div class="request-layout">
+        
+        <!-- Left: Form -->
+        <div class="request-form-card">
+          <form id="dispatchForm" onsubmit="event.preventDefault(); handleDispatchSubmit();">
+            
+            <div class="form-group">
+              <label for="reqAcademy">依頼元学園 / 自治区 <span class="required">*</span></label>
+              <select id="reqAcademy" class="form-control" required>
+                <option value="" disabled selected>学園を選択してください</option>
+                <option value="アビドス高等学校 (対策委員会)">アビドス高等学校 (対策委員会)</option>
+                <option value="トリニティ総合学園 (正義実現委員会/救護騎士団)">トリニティ総合学園 (正義実現委員会/救護騎士団)</option>
+                <option value="ゲヘナ学園 (風紀委員会/便利屋68)">ゲヘナ学園 (風紀委員会/便利屋68)</option>
+                <option value="ミレニアムサイエンススクール (セミナー/C&C)">ミレニアムサイエンススクール (セミナー/C&C)</option>
+                <option value="百鬼夜行連合学院 (百花繚乱/お祭り運営委員会)">百鬼夜行連合学院 (百花繚乱/お祭り運営委員会)</option>
+                <option value="SRT特殊学園 (RABBIT小隊)">SRT特殊学園 (RABBIT小隊)</option>
+                <option value="ヴァルキューレ警察学校">ヴァルキューレ警察学校</option>
+                <option value="連邦生徒会 行政委員会">連邦生徒会 行政委員会</option>
+                <option value="その他の学園 / 一般依頼">その他の学園 / 一般依頼</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="reqCategory">事案カテゴリ <span class="required">*</span></label>
+                <select id="reqCategory" class="form-control" required>
+                  <option value="治安維持・防衛支援">治安維持・防衛支援</option>
+                  <option value="特異現象・AI暴走調査">特異現象・AI暴走調査</option>
+                  <option value="部活動・学園祭支援">部活動・学園祭支援</option>
+                  <option value="失踪者・指名手配犯捜索">失踪者・指名手配犯捜索</option>
+                  <option value="先生との個別相談・指導">先生との個別相談・指導</option>
+                </select>
+              </div>
+
+              <div class="form-group col-half">
+                <label for="reqPriority">緊急優先度 <span class="required">*</span></label>
+                <select id="reqPriority" class="form-control" required>
+                  <option value="CODE: BLUE (通常業務)">CODE: BLUE (通常業務)</option>
+                  <option value="CODE: YELLOW (警戒事案)">CODE: YELLOW (警戒事案)</option>
+                  <option value="CODE: RED (緊急事態・即時出動)">CODE: RED (緊急事態・即時出動)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reqTitle">事案名 / 要請概要 <span class="required">*</span></label>
+              <input type="text" id="reqTitle" class="form-control" placeholder="例: 自治区境界線における合同パトロール要請" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reqDetails">要請詳細・先生へのメッセージ</label>
+              <textarea id="reqDetails" class="form-control text-area" rows="4" placeholder="詳細な状況や、先生への要望を入力してください..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-request">
+              <span class="btn-stamp-icon">✍️</span> 先生として要請を承認・決裁する
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: Approved Ticket Preview (Live Stamp Animation) -->
+        <div class="request-result-card" id="dispatchResult">
+          <div class="ticket-watermark">SCHALE</div>
+          <div class="ticket-header">
+            <div class="ticket-brand">KIVOTOS SCHALE DISPATCH VOUCHER</div>
+            <div class="ticket-id" id="ticketId">ID: SCH-2026-0000</div>
+          </div>
+
+          <div class="ticket-body">
+            <div class="ticket-field">
+              <span class="t-label">依頼学園:</span>
+              <span class="t-value" id="ticketAcademy">--</span>
+            </div>
+            <div class="ticket-field">
+              <span class="t-label">事案カテゴリ:</span>
+              <span class="t-value" id="ticketCategory">--</span>
+            </div>
+            <div class="ticket-field">
+              <span class="t-label">優先度:</span>
+              <span class="t-value" id="ticketPriority">--</span>
+            </div>
+            <div class="ticket-field">
+              <span class="t-label">事案名:</span>
+              <span class="t-value" id="ticketTitle">フォームから要請を入力し承認ボタンを押してください</span>
+            </div>
+            <div class="ticket-field">
+              <span class="t-label">受理日時:</span>
+              <span class="t-value" id="ticketTime">--</span>
+            </div>
+          </div>
+
+          <!-- Physical Ink Approved Stamp Element -->
+          <div class="stamp-approved" id="stampApproved">
+            <div class="stamp-inner">
+              <span class="stamp-sub">SCHALE BUREAU</span>
+              <span class="stamp-main">APPROVED</span>
+              <span class="stamp-jp">先生 承認済</span>
+              <span class="stamp-date" id="stampDate">2026.09.01</span>
+            </div>
+          </div>
+
+          <div class="ticket-footer">
+            <small>※本証票は連邦生徒会憲章およびシャーレ超法規規則に基づき発効されます。</small>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 06: Official Links Portal (ブルーアーカイブ公式リンク集) -->
+    <section class="section-container official-portal-section" id="official-portal">
+      <div class="section-header">
+        <div class="section-tag highlight-tag"><span class="tag-num">06</span> OFFICIAL WEB & COMMUNITY PORTAL</div>
+        <h2 class="section-title">ブルーアーカイブ 公式サイト ＆ 関連リンク集</h2>
+        <p class="section-subtitle">ゲーム本編、最新アップデート、公式SNS、運営元への公式リンク一覧です。</p>
+      </div>
+
+      <div class="official-links-grid">
+        
+        <!-- Official Game Site -->
+        <a href="https://bluearchive.jp/" target="_blank" rel="noopener noreferrer" class="official-card main-official-card">
+          <div class="card-glow-edge"></div>
+          <div class="off-icon-circle">🌐</div>
+          <div class="off-card-body">
+            <div class="off-tag">OFFICIAL WEBSITE</div>
+            <h3 class="off-title">ブルーアーカイブ 公式サイト</h3>
+            <p class="off-desc">ゲームの世界観、生徒紹介、最新イベント情報、ゲームダウンロードはこちらから。</p>
+            <span class="off-link-text">https://bluearchive.jp/ ↗</span>
+          </div>
+        </a>
+
+        <!-- Official X (Twitter) -->
+        <a href="https://x.com/Blue_Archive_JP" target="_blank" rel="noopener noreferrer" class="official-card">
+          <div class="card-glow-edge"></div>
+          <div class="off-icon-circle">𝕏</div>
+          <div class="off-card-body">
+            <div class="off-tag">OFFICIAL X / TWITTER</div>
+            <h3 class="off-title">公式X (@Blue_Archive_JP)</h3>
+            <p class="off-desc">メンテナンス告知、新生徒募集、公式コミック・イラストの最新情報を即時配信中。</p>
+            <span class="off-link-text">twitter.com/Blue_Archive_JP ↗</span>
+          </div>
+        </a>
+
+        <!-- Official YouTube -->
+        <a href="https://www.youtube.com/@BlueArchive_JP" target="_blank" rel="noopener noreferrer" class="official-card">
+          <div class="card-glow-edge"></div>
+          <div class="off-icon-circle">▶️</div>
+          <div class="off-card-body">
+            <div class="off-tag">OFFICIAL YOUTUBE</div>
+            <h3 class="off-title">公式YouTubeチャンネル</h3>
+            <p class="off-desc">公式生放送「ブルアカらいぶ！」、PV、各種アニメーション、キャラクター紹介動画を配信。</p>
+            <span class="off-link-text">youtube.com/@BlueArchive_JP ↗</span>
+          </div>
+        </a>
+
+        <!-- Yostar Official -->
+        <a href="https://www.yostar.co.jp/" target="_blank" rel="noopener noreferrer" class="official-card">
+          <div class="card-glow-edge"></div>
+          <div class="off-icon-circle">🏢</div>
+          <div class="off-card-body">
+            <div class="off-tag">PUBLISHER</div>
+            <h3 class="off-title">株式会社 Yostar</h3>
+            <p class="off-desc">ブルーアーカイブ日本国内運営・パブリッシャー公式コーポレートサイト。</p>
+            <span class="off-link-text">yostar.co.jp ↗</span>
+          </div>
+        </a>
+
+        <!-- Nexon Games -->
+        <a href="https://www.nexongames.co.kr/" target="_blank" rel="noopener noreferrer" class="official-card">
+          <div class="card-glow-edge"></div>
+          <div class="off-icon-circle">🎮</div>
+          <div class="off-card-body">
+            <div class="off-tag">DEVELOPER</div>
+            <h3 class="off-title">NEXON Games</h3>
+            <p class="off-desc">ブルーアーカイブ開発元「NEXON Games（IO Division / MX Studio）」公式サイト。</p>
+            <span class="off-link-text">nexongames.co.kr ↗</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Comprehensive Fan Work Disclaimer & Legal Notice -->
+    <section class="section-container legal-disclaimer-section">
+      <div class="legal-box">
+        <div class="legal-badge">LEGAL & FAN-MADE DISCLAIMER / 免責事項</div>
+        <h3 class="legal-title">当サイトのご利用に関する重要なお知らせ（非公式作品表記）</h3>
+        <p class="legal-text">
+          1. <strong>非公式の明記:</strong> 本Webサイトは、スマートフォン向けRPG『ブルーアーカイブ -Blue Archive-』の世界観および連邦捜査部「シャーレ」を題材とした<strong>個人ファン有志による非公式の二次創作・コンセプトWebサイト</strong>です。<br>
+          2. <strong>権利帰属:</strong> 『ブルーアーカイブ』に関する著作権、商標権、その他一切の知的財産権は、開発元である<strong>NEXON Games Co., Ltd.</strong>および運営元である<strong>株式会社Yostar</strong>に帰属します。<br>
+          3. <strong>非営利方針:</strong> 本サイトは非営利目的で制作・公開されており、金銭的な収益化や公式サービスの騙称を目的としたものではありません。<br>
+          4. <strong>公式へのお問い合わせ:</strong> ゲーム内容や公式サービスに関するお問い合わせは、必ず上記「<a href="https://bluearchive.jp/" target="_blank" rel="noopener noreferrer">ブルーアーカイブ公式サイト</a>」窓口をご利用ください。
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="schale-footer">
+    <div class="footer-container">
+      
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="f-logo-text">SCHALE <span>連邦捜査部</span></div>
+          <p class="f-desc">Kivotos General Student Council Extrajudicial Special Investigation Bureau</p>
+          <div class="f-status">KIVOTOS CONNECTIVITY: 100% ONLINE // SHITTIM CHEST ACTIVE</div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>内部リンク</h4>
+          <ul>
+            <li><a href="#hero">ポータルトップ</a></li>
+            <li><a href="#about">連邦捜査部概要</a></li>
+            <li><a href="#dossiers">事案調査ログ</a></li>
+            <li><a href="#academies">学園治安モニター</a></li>
+            <li><a href="#terminal">シッテムの箱端末</a></li>
+            <li><a href="#request">事案支援要請</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>公式関連リンク (外部リンク)</h4>
+          <ul>
+            <li><a href="https://bluearchive.jp/" target="_blank" rel="noopener noreferrer">ブルーアーカイブ 公式サイト ↗</a></li>
+            <li><a href="https://x.com/Blue_Archive_JP" target="_blank" rel="noopener noreferrer">公式X (@Blue_Archive_JP) ↗</a></li>
+            <li><a href="https://www.youtube.com/@BlueArchive_JP" target="_blank" rel="noopener noreferrer">公式YouTubeチャンネル ↗</a></li>
+            <li><a href="https://www.yostar.co.jp/" target="_blank" rel="noopener noreferrer">株式会社Yostar ↗</a></li>
+            <li><a href="https://www.nexongames.co.kr/" target="_blank" rel="noopener noreferrer">NEXON Games ↗</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright-notice">
+          © 2026 SCHALE UNOFFICIAL FAN PORTAL. Designed for Kivotos Sensei.<br>
+          © 2026 NEXON Games Co., Ltd. & Yostar, Inc. All Rights Reserved. (Original Work)
+        </p>
+        <div class="footer-security-tag">
+          SECURE PROTOCOL // SHITTIM-SEC-V3
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Dossier Detail Modal Dialog -->
+  <div class="modal-overlay" id="dossierModal" onclick="if(event.target === this) closeDossierModal();">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-header-info">
+          <span class="m-code" id="modalCode">FILE #000</span>
+          <span class="m-badge" id="modalBadge">CONFIDENTIAL</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeDossierModal()" aria-label="閉じる">×</button>
+      </div>
+      <div class="modal-body">
+        <h3 class="modal-title" id="modalTitle">事案タイトル</h3>
+        <div class="modal-meta-grid" id="modalMeta">
+          <!-- Injected via JS -->
+        </div>
+        <div class="modal-section-title">事案概要および捜査記録</div>
+        <div class="modal-text-content" id="modalContent">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="m-stamp">SCHALE CLASSIFIED ARCHIVE</span>
+        <button class="btn-modal-close" onclick="closeDossierModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>
