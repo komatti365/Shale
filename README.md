@@ -9,6 +9,9 @@
 - 本Webサイトはファン有志による**非公式の二次創作・コンセプトWebサイト**です。
 - 株式会社Yostar様およびNEXON Games様とは一切関係ありません。
 - 『ブルーアーカイブ』に関するすべての著作権・知的財産権は、**NEXON Games Co., Ltd.** および **株式会社Yostar** に帰属します。
+- 権利者の方へ
+削除を希望される場合は、お手数ですが、[ba_main_stein@ena-vocalp.com] または GitHub(https://github.com/komatti365)までご連絡ください。
+ 
 
 ---
 
