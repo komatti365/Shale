@@ -10,7 +10,7 @@
 - 株式会社Yostar様およびNEXON Games様とは一切関係ありません。
 - 『ブルーアーカイブ』に関するすべての著作権・知的財産権は、**NEXON Games Co., Ltd.** および **株式会社Yostar** に帰属します。
 - 権利者の方へ
-削除を希望される場合は、お手数ですが、[ba_main_stein@ena-vocalp.com] または GitHub(https://github.com/komatti365)までご連絡ください。
+削除を希望される場合は、お手数ですが、[ba_main_stein@ena-vocalp.com] または GitHub(https://github.com/komatti365) までご連絡ください。
 またドメイン([shale.jp](http://schale.jp/)及び[shale.online](http://shale.online/))につきましてもご希望でしたら譲渡する準備ができております。
 
 ---
