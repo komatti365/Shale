@@ -328,13 +328,23 @@ window.addEventListener('keydown', (e) => {
 const terminalResponses = {
   help: `
 [AVAILABLE COMMANDS / コマンド一覧]
-  - <strong>arona</strong>  : アロナとお話しします
-  - <strong>plana</strong>  : プラナとお話しします
-  - <strong>status</strong> : キヴォトスおよびシャーレの通信状態
-  - <strong>cafe</strong>   : 本日のシャーレカフェ来訪状況
-  - <strong>gacha</strong>  : 先生の今日の運勢（お仕事封筒開封シミュレータ）
-  - <strong>report</strong> : 未処理の事案レポート要約
-  - <strong>clear</strong>  : ターミナル画面をクリアします
+  - <strong>arona</strong>   : アロナとお話しします
+  - <strong>plana</strong>   : プラナとお話しします
+  - <strong>status</strong>  : キヴォトスおよびシャーレの通信状態
+  - <strong>cafe</strong>    : 本日のシャーレカフェ来訪状況
+  - <strong>gacha</strong>   : 先生の今日の運勢（お仕事封筒開封シミュレータ）
+  - <strong>report</strong>  : 未処理の事案レポート要約
+  - <strong>github</strong>  : 製作者 GitHub プロフィール / リポジトリ
+  - <strong>clear</strong>   : ターミナル画面をクリアします
+  `,
+  github: `
+[CREATOR GITHUB ARCHIVE]
+  - 製作者: <strong>komatti365</strong> (<a href="https://github.com/komatti365" target="_blank" style="color:#00e5ff;">https://github.com/komatti365 ↗</a>)
+  - リポジトリ: <a href="https://github.com/komatti365/Shale" target="_blank" style="color:#00e5ff;">https://github.com/komatti365/Shale ↗</a>
+  - プロジェクト: 連邦捜査部シャーレ 非公式コンセプトポータル
+  `,
+  creator: `
+<div class="term-line arona-msg"><span class="speaker-tag arona">アロナ</span>「この素敵なシャーレ端末ポータルは @komatti365 さんが制作してくださいました！先生、GitHubもぜひチェックしてみてくださいね♪」</div>
   `,
   arona: `
 <div class="term-line arona-msg"><span class="speaker-tag arona">アロナ</span>「先生！呼んでくれてありがとうございます！今日も先生のためにいっぱい働きますね！おやつにイチゴミルクが飲みたいです♪」</div>
